@@ -1,6 +1,130 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "dmaterial-web": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/dmaterial-web",
+      "sourceRoot": "apps/dmaterial-web/src",
+      "prefix": "dm-web",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/dmaterial-web",
+            "index": "apps/dmaterial-web/src/index.html",
+            "main": "apps/dmaterial-web/src/main.ts",
+            "polyfills": "apps/dmaterial-web/src/polyfills.ts",
+            "tsConfig": "apps/dmaterial-web/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "apps/dmaterial-web/src/favicon.ico",
+              "apps/dmaterial-web/src/assets"
+            ],
+            "styles": ["apps/dmaterial-web/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/dmaterial-web/src/environments/environment.ts",
+                  "with": "apps/dmaterial-web/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "dmaterial-web:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "dmaterial-web:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "dmaterial-web:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/dmaterial-web/tsconfig.app.json",
+              "apps/dmaterial-web/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/dmaterial-web/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/dmaterial-web/jest.config.js",
+            "tsConfig": "apps/dmaterial-web/tsconfig.spec.json",
+            "setupFile": "apps/dmaterial-web/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "dmaterial-web-e2e": {
+      "root": "apps/dmaterial-web-e2e",
+      "sourceRoot": "apps/dmaterial-web-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/dmaterial-web-e2e/cypress.json",
+            "tsConfig": "apps/dmaterial-web-e2e/tsconfig.e2e.json",
+            "devServerTarget": "dmaterial-web:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "dmaterial-web:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/dmaterial-web-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/dmaterial-web-e2e/**"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "defaultCollection": "@nrwl/angular"
   },
@@ -12,5 +136,6 @@
     "@nrwl/angular:library": {
       "unitTestRunner": "jest"
     }
-  }
+  },
+  "defaultProject": "dmaterial-web"
 }

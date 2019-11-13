@@ -7,5 +7,12 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "dmaterial-web-e2e": {
+      "tags": []
+    },
+    "dmaterial-web": {
+      "tags": []
+    }
+  }
 }
