@@ -123,6 +123,82 @@
           }
         }
       }
+    },
+    "pages": {
+      "projectType": "library",
+      "root": "libs/pages",
+      "sourceRoot": "libs/pages/src",
+      "prefix": "dm",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/pages/tsconfig.lib.json",
+            "project": "libs/pages/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/pages/tsconfig.lib.json",
+              "libs/pages/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/pages/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/pages/jest.config.js",
+            "tsConfig": "libs/pages/tsconfig.spec.json",
+            "setupFile": "libs/pages/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "components": {
+      "projectType": "library",
+      "root": "libs/components",
+      "sourceRoot": "libs/components/src",
+      "prefix": "dm",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/components/tsconfig.lib.json",
+            "project": "libs/components/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/components/tsconfig.lib.json",
+              "libs/components/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/components/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/components/jest.config.js",
+            "tsConfig": "libs/components/tsconfig.spec.json",
+            "setupFile": "libs/components/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

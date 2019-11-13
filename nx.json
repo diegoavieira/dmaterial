@@ -13,6 +13,12 @@
     },
     "dmaterial-web": {
       "tags": []
+    },
+    "pages": {
+      "tags": []
+    },
+    "components": {
+      "tags": []
     }
   }
 }
