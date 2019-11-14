@@ -1,24 +1,32 @@
-language: node_js
-node_js:
-  - '10'
-
 dist: trusty
-sudo: required
+sudo: false
+language: node_js
+node_js: node
 
-branches:
-only:
-  - master
-
-before_script:
-  - npm install -g @angular/cli
-
+install:
+  - npm ci
+cache:
+  directories:
+    - $HOME/.npm
 script:
-  - ng build dmaterial-web --prod --base-href https://diegoavieira.github.io/dmaterial/
+  - npm run lint:pages
+  - npm run build:pages && npm run build:dmaterial-web
 
 deploy:
   provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: dist/apps/dmaterial-web
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  local-dir: dist/apps/dmaterial-web
   on:
     branch: master
+
+git:
+  depth: 3
+
+after_success:
+  - npm run travis-deploy-once "npm run semantic-release"
+
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/

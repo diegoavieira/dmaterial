@@ -26,8 +26,34 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "pack:pages": "ng build pages && cd dist/libs/pages && npm pack",
-    "pack:components": "ng build components && cd dist/libs/components && npm pack"
+    "build:dmaterial-web": "ng build dmaterial-web --base-href /dmaterial/ --prod",
+    "lint:dmaterial-web": "ng lint dmaterial-web",
+    "build:pages": "ng build pages",
+    "lint:pages": "ng lint pages",
+    "build:components": "ng build components",
+    "lint:components": "ng lint components",
+    "commit": "git-cz",
+    "travis-deploy-once": "travis-deploy-once --pro",
+    "semantic-release": "semantic-release"
+  },
+  "release": {
+    "pkgRoot": "dist/libs/pages"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:dmaterial-web && npm run lint:pages && npm run lint:components",
+      "commit-msg": "commitlint --edit"
+    }
   },
   "private": true,
   "dependencies": {
@@ -46,28 +72,34 @@
     "zone.js": "^0.9.1"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^0.803.3",
     "@angular-devkit/build-ng-packagr": "~0.803.3",
     "@angular/cli": "8.3.3",
+    "@angular/compiler-cli": "^8.2.0",
+    "@angular/language-service": "^8.2.0",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@nrwl/cypress": "8.7.1",
+    "@nrwl/jest": "8.7.1",
     "@nrwl/workspace": "8.7.1",
+    "@types/jest": "24.0.9",
     "@types/node": "~8.9.4",
+    "codelyzer": "~5.0.1",
+    "cypress": "3.4.1",
+    "cz-conventional-changelog": "^3.0.2",
     "dotenv": "6.2.0",
+    "eslint": "6.1.0",
+    "husky": "^3.0.9",
+    "jest": "24.1.0",
+    "jest-preset-angular": "7.0.0",
     "ng-packagr": "^5.4.0",
+    "prettier": "1.18.2",
+    "semantic-release": "^15.13.30",
+    "travis-deploy-once": "^5.0.11",
+    "ts-jest": "24.0.0",
     "ts-node": "~7.0.0",
     "tsickle": "^0.37.0",
     "tslint": "~5.11.0",
-    "eslint": "6.1.0",
-    "typescript": "~3.4.5",
-    "prettier": "1.18.2",
-    "@angular/compiler-cli": "^8.2.0",
-    "@angular/language-service": "^8.2.0",
-    "@angular-devkit/build-angular": "^0.803.3",
-    "codelyzer": "~5.0.1",
-    "jest-preset-angular": "7.0.0",
-    "@nrwl/jest": "8.7.1",
-    "jest": "24.1.0",
-    "@types/jest": "24.0.9",
-    "ts-jest": "24.0.0",
-    "cypress": "3.4.1",
-    "@nrwl/cypress": "8.7.1"
+    "typescript": "~3.4.5"
   }
 }
